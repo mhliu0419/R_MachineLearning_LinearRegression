@@ -68,3 +68,47 @@ res <- as.data.frame(res)
 res
 
 ggplot(res,aes(res)) + geom_histogram(fill = 'blue', alpha = 0.5)
+
+
+
+
+# Prediction
+
+G3.predictions <- predict(model, test)
+
+results <- cbind(G3.predictions, test$G3)
+colnames(results) <- c('predicted', 'actual')
+results <- as.data.frame(results)
+head(results)
+
+
+# take care of negative scores
+to_zero <- function(x) {
+  if (x<0) {
+    return(0)
+  } else{
+    return(x)
+  }
+}
+
+
+results$predicted <- sapply(results$predicted, to_zero)
+
+
+# MSE Mean Square Error
+
+mse <- mean((results$actual - results$predicted)^2)
+
+# SSE Sum of Squared Error
+
+SSE <- sum((results$predicted - results$actual)^2)
+SSE
+
+# SST Sum of squared total
+
+SST = sum((mean(df$G3) - results$actual)^2)
+
+# R^2 = 1 - SSE/SST
+
+R2 <- 1 - SSE/SST
+R2
