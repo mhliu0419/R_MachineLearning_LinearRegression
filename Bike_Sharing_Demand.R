@@ -88,6 +88,29 @@ ggplot(df[df$workingday == 0,], aes(x=hour,y=count,color = temp)) + geom_point(p
 
 
 
+# Building the model
+
+
+
+temp.model <- lm(count ~ temp, data = df)
+
+summary(temp.model)
+
+
+
+
+# How many bike rentals would we predict if the temperature was 25 degrees Celsius?
+
+
+df$hour <- sapply(df$hour, as.numeric)
+
+
+model <- lm(formula = count ~ . - casual - registered - datetime - atemp, 
+            data = df)
+
+summary(model)
+
+
 
 
 
