@@ -32,7 +32,7 @@ output: html_document
 # To load data and packages, set theme
 ```{r}
 
-df <- read.csv('/Users/AncelotLiu/Desktop/R-Course-HTML-Notes/R-for-Data-Science-and-Machine-Learning/Training\ Exercises/Machine\ Learning\ Projects/CSV\ files\ for\ ML\ Projects/bikeshare.csv')
+df <- read.csv('/Users/ml4274/Downloads/R-Course-HTML-Notes/R-for-Data-Science-and-Machine-Learning/Training\ Exercises/Machine\ Learning\ Projects/CSV\ files\ for\ ML\ Projects/bikeshare.csv')
 class(df)
 
 head(df)
@@ -100,3 +100,49 @@ ggplot(df[df$workingday == 0,], aes(x=hour,y=count,color = temp)) + geom_point(p
 ```
 
 ## Notice that working days have peak activity during the morning (~8am) and right after work gets out (~5pm), with some lunchtime activity. While the non-work days have a steady rise and fall for the afternoon
+
+
+# Building the model
+
+``` {r linear model(temp vs count)}
+
+temp.model <- lm(count ~ temp, data = df)
+
+summary(temp.model)
+
+
+```
+
+# How many bike rentals would we predict if the temperature was 25 degrees Celsius?
+
+``` {r linear model}
+
+
+
+
+```
+
+``` {r linear model}
+
+df$hour <- sapply(df$hour, as.numeric)
+
+
+```
+
+``` {r linear model}
+
+model <- lm(formula = count ~ . - casual - registered - datetime - atemp, 
+    data = df)
+
+summary(model)
+
+```
+
+
+
+``` {r linear model}
+
+
+
+
+```
