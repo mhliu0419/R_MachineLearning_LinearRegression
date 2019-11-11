@@ -22,3 +22,72 @@ df <- read.csv('/Users/ml4274/Downloads/R-Course-HTML-Notes/R-for-Data-Science-a
 class(df)
 
 head(df)
+
+library(ggplot2)
+library(ggthemes)
+
+theme_set(theme_economist_white())
+
+
+
+# Create a scatter plot of count vs temp. Set a good alpha value.
+
+
+ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5)
+
+
+
+
+# Plot count versus datetime as a scatterplot with a color gradient based on temperature. You'll need to convert the datetime column into POSIXct before plotting.
+
+df$datetime <- as.POSIXct(df$datetime)
+
+ggplot(df, aes(datetime, count, color = temp)) + geom_point(alpha = 0.5)
+
+
+# The correlation between temp and count
+
+
+
+cor(df[,c('temp','count')])
+
+
+
+# Season data: Create a boxplot, with the y axis indicating count and the x axis begin a box for each season.
+
+
+
+ggplot(df,aes(x=factor(season),y=count, color = factor(season))) + geom_boxplot()
+
+
+
+# Create an "hour" column that takes the hour from the datetime column.
+
+
+hour <- format(df$datetime, '%H')
+
+df <- cbind(df, hour)
+
+head(df)
+
+
+# Now create a scatterplot of count versus hour, with color scale based on temp. Only use bike data where workingday==1.
+
+
+ggplot(df[df$workingday == 1,], aes(x=hour,y=count,color = temp)) + geom_point(position=position_jitter(w=1, h=0)) + scale_color_gradientn(colors=c('black','blue','green','yellow','red'))
+
+
+
+
+
+ggplot(df[df$workingday == 0,], aes(x=hour,y=count,color = temp)) + geom_point(position=position_jitter(w=1, h=0)) + scale_color_gradientn(colors=c('black','blue','green','yellow','red'))
+
+
+
+## Notice that working days have peak activity during the morning (~8am) and right after work gets out (~5pm), with some lunchtime activity. While the non-work days have a steady rise and fall for the afternoon
+
+
+
+
+
+
