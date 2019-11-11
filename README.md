@@ -1,3 +1,3 @@
 # R_MachineLearning_LinearRegression
 
-$x^2-1$
+$$x^2-1$$
