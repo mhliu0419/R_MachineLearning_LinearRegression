@@ -18,11 +18,13 @@
 # count - number of total rentals
 
 
-df <- read.csv('/Users/ml4274/Downloads/R-Course-HTML-Notes/R-for-Data-Science-and-Machine-Learning/Training\ Exercises/Machine\ Learning\ Projects/CSV\ files\ for\ ML\ Projects/bikeshare.csv')
+df <- read.csv('/Users/ml4274/Downloads/R_MachineLearning_LinearRegression-master/bikeshare.csv')
 class(df)
 
 head(df)
 
+install.packages("ggplot2")
+install.packages("ggthemes")
 library(ggplot2)
 library(ggthemes)
 
@@ -33,7 +35,7 @@ theme_set(theme_economist_white())
 # Create a scatter plot of count vs temp. Set a good alpha value.
 
 
-ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5)
+ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.3)
 
 
 
@@ -42,7 +44,8 @@ ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5)
 
 df$datetime <- as.POSIXct(df$datetime)
 
-ggplot(df, aes(datetime, count, color = temp)) + geom_point(alpha = 0.5)
+ggplot(df, aes(datetime, count)) + geom_point(alpha = 0.3, aes(color = temp)) +
+  scale_color_continuous(low = 'green',high = 'red')
 
 
 # The correlation between temp and count
