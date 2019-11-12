@@ -25,6 +25,8 @@ head(df)
 
 install.packages("ggplot2")
 install.packages("ggthemes")
+install.packages("dplyr")
+library(dplyr)
 library(ggplot2)
 library(ggthemes)
 
@@ -35,7 +37,7 @@ theme_set(theme_economist_white())
 # Create a scatter plot of count vs temp. Set a good alpha value.
 
 
-ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.3)
+ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5)
 
 
 
@@ -62,6 +64,9 @@ cor(df[,c('temp','count')])
 
 ggplot(df,aes(x=factor(season),y=count, color = factor(season))) + geom_boxplot()
 
+# The boxplot indicates the most popular seasons are summer and fall
+# But count in spring is lower than the count in winter, it's strange
+# Probably that's due to the increase in total count available
 
 
 # Create an "hour" column that takes the hour from the datetime column.
@@ -73,21 +78,39 @@ df <- cbind(df, hour)
 
 head(df)
 
+# Alternative way:
+# df$hour <- sapply(df$datetime, function(x){format(x,"%H)})
 
 # Now create a scatterplot of count versus hour, with color scale based on temp. Only use bike data where workingday==1.
 
 
-ggplot(df[df$workingday == 1,], aes(x=hour,y=count,color = temp)) + geom_point(position=position_jitter(w=1, h=0)) + scale_color_gradientn(colors=c('black','blue','green','yellow','red'))
+ggplot(df[df$workingday == 1,], aes(x=hour,y=count,color = temp)) + 
+  geom_point(position=position_jitter(w=1, h=0),alpha = 0.5) + 
+  scale_color_gradientn(colors=c('dark blue','blue','light blue','green','yellow','orange','red'))
+
+# OR use: filter(df,workingday==1)
+# position_jitter can fill the space and make points our of their original space
+# scale_color_gradientn can let us choose colors as different level
 
 
-
-
-
-ggplot(df[df$workingday == 0,], aes(x=hour,y=count,color = temp)) + geom_point(position=position_jitter(w=1, h=0)) + scale_color_gradientn(colors=c('black','blue','green','yellow','red'))
-
+ggplot(filter(df, workingday == 0), aes(x=hour,y=count,color = temp)) + 
+  geom_point(position=position_jitter(w=1, h=0),alpha = 0.5) + 
+  scale_color_gradientn(colors=c('dark blue','blue','light blue','green','yellow','orange','red'))
 
 
 ## Notice that working days have peak activity during the morning (~8am) and right after work gets out (~5pm), with some lunchtime activity. While the non-work days have a steady rise and fall for the afternoon
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
