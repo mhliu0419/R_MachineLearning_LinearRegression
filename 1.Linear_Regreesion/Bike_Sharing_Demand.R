@@ -37,7 +37,8 @@ theme_set(theme_economist_white())
 # Create a scatter plot of count vs temp. Set a good alpha value.
 
 
-ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5)
+ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5) + 
+  ggtitle('Bike Count vs Temp')
 
 
 
@@ -47,7 +48,8 @@ ggplot(df, aes(temp, count, color = temp)) + geom_point(alpha = 0.5)
 df$datetime <- as.POSIXct(df$datetime)
 
 ggplot(df, aes(datetime, count)) + geom_point(alpha = 0.3, aes(color = temp)) +
-  scale_color_continuous(low = 'green',high = 'red')
+  scale_color_continuous(low = 'green',high = 'red') + 
+  ggtitle('Bike Count vs Datetime, with color gradient based on Temp')
 
 
 # The correlation between temp and count
@@ -62,7 +64,8 @@ cor(df[,c('temp','count')])
 
 
 
-ggplot(df,aes(x=factor(season),y=count, color = factor(season))) + geom_boxplot()
+ggplot(df,aes(x=factor(season),y=count, color = factor(season))) + geom_boxplot() +
+  labs(x = 'Seasons: Spring, Summer, Fall, Winter', y = 'Bike Count')
 
 # The boxplot indicates the most popular seasons are summer and fall
 # But count in spring is lower than the count in winter, it's strange
@@ -99,7 +102,6 @@ ggplot(filter(df, workingday == 0), aes(x=hour,y=count,color = temp)) +
 
 
 ## Notice that working days have peak activity during the morning (~8am) and right after work gets out (~5pm), with some lunchtime activity. While the non-work days have a steady rise and fall for the afternoon
-
 
 
 
