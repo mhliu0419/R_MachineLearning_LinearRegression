@@ -10,6 +10,7 @@
 #   Categorial fectures don't work well
 
 
+# ISLR: Data for an Introduction to Statistical Learning with Applications in R
 install.packages("ISLR")
 library(ISLR)
 str(Caravan)
