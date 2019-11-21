@@ -83,3 +83,33 @@ species.prediction
 
 missclass.rate = mean(species.prediction != iris.test$Species)
 missclass.rate
+
+
+
+# Choosing a K Value
+
+## Create a plot of the error (misclassification) rate for k values ranging from 1 to 10.
+
+
+
+species.prediction.df <- NULL
+error.rate <- NULL
+
+
+for (i in 1:10) {
+  set.seed(101)
+  species.prediction.df <- knn(iris.train[1:4], iris.test[1:4], iris.train$Species, k = i) 
+  error.rate[i] <- mean(species.prediction.df != iris.test$Species)
+  
+}
+
+
+error.rate
+k.values <- 1:10
+error.df <- data.frame(error.rate, k.values)
+error.df
+
+ggplot(error.df, aes(x = k.values, y = error.rate)) +
+  geom_point() + geom_line(lty = 'dotted', col = 'blue') +
+  ggtitle('K values vs Error rate for KNN')
+  
