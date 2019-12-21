@@ -76,11 +76,23 @@ df.train$Age <- fixed.ages
 missmap(df.train, main = 'Imputation Check', col = c('yellow', 'black'), legend = FALSE)
 
 
+str(df.train)
+
+
+# To remove some features/columns of data set
+
+library(dplyr)
+
+
+df.train <- select(df.train, -PassengerId, -Name, -Ticket, -Cabin)
+head(df.train)
 
 
 
+# Train the model
 
-
+log.model <- glm(Survived ~ . , family = binomial(link = 'logit'), data = df.train)
+summary(log.model)
 
 
 
