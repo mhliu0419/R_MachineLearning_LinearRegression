@@ -1,3 +1,6 @@
+For Tutorial:
+
+
 The Challenge: Titanic: Machine Learning from Disaster
 
 The sinking of the Titanic is one of the most infamous shipwrecks in history.
@@ -51,3 +54,6 @@ parch: The dataset defines family relations in this way...
 Parent = mother, father
 Child = daughter, son, stepdaughter, stepson
 Some children travelled only with a nanny, therefore parch=0 for them.
+
+
+###################################################################################################################
