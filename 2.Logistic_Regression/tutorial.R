@@ -95,10 +95,32 @@ log.model <- glm(Survived ~ . , family = binomial(link = 'logit'), data = df.tra
 summary(log.model)
 
 
+# Split data
+
+library(caTools)
+
+set.seed(101)
+
+split <- sample.split(df.train$Survived, SplitRatio = 0.7)
+final.train <- subset(df.train, split == TRUE)
+final.test <- subset(df.train, split == FALSE)
+
+final.log.model <- glm(Survived ~ ., family = binomial(link = 'logit'), data = final.train)
+summary(final.log.model)
 
 
+fitted.prob <- predict(final.log.model, final.test, type = 'response')
+fitted.results <- ifelse(fitted.prob > 0.5, 1, 0)
+fitted.results
 
 
+misClassError <- mean(fitted.results != final.test$Survived)
+1-misClassError
+
+
+# Confusion Matrix
+
+table(final.test$Survived, fitted.prob > 0.5)
 
 
 
