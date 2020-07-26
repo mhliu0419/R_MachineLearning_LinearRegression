@@ -1,0 +1,54 @@
+Value    RandomForest.model$Value
+
+An object of class randomForest, which is a list with the following components:
+
+call	
+the original call to randomForest
+
+type	
+one of regression, classification, or unsupervised.
+
+predicted	
+the predicted values of the input data based on out-of-bag samples.
+
+importance	
+a matrix with nclass + 2 (for classification) or two (for regression) columns. For classification, the first nclass columns are the class-specific measures computed as mean descrease in accuracy. The nclass + 1st column is the mean descrease in accuracy over all classes. The last column is the mean decrease in Gini index. For Regression, the first column is the mean decrease in accuracy and the second the mean decrease in MSE. If importance=FALSE, the last measure is still returned as a vector.
+
+importanceSD	
+The “standard errors” of the permutation-based importance measure. For classification, a p by nclass + 1 matrix corresponding to the first nclass + 1 columns of the importance matrix. For regression, a length p vector.
+
+localImp	
+a p by n matrix containing the casewise importance measures, the [i,j] element of which is the importance of i-th variable on the j-th case. NULL if localImp=FALSE.
+
+ntree	
+number of trees grown.
+
+mtry	
+number of predictors sampled for spliting at each node.
+
+forest	
+(a list that contains the entire forest; NULL if randomForest is run in unsupervised mode or if keep.forest=FALSE.
+
+err.rate	
+(classification only) vector error rates of the prediction on the input data, the i-th element being the (OOB) error rate for all trees up to the i-th.
+
+confusion	
+(classification only) the confusion matrix of the prediction (based on OOB data).
+
+votes	
+(classification only) a matrix with one row for each input data point and one column for each class, giving the fraction or number of (OOB) ‘votes’ from the random forest.
+
+oob.times	
+number of times cases are ‘out-of-bag’ (and thus used in computing OOB error estimate)
+
+proximity	
+if proximity=TRUE when randomForest is called, a matrix of proximity measures among the input (based on the frequency that pairs of data points are in the same terminal nodes).
+
+mse	
+(regression only) vector of mean square errors: sum of squared residuals divided by n.
+
+rsq	
+(regression only) “pseudo R-squared”: 1 - mse / Var(y).
+
+test	
+if test set is given (through the xtest or additionally ytest arguments), this component is a list which contains the corresponding predicted, err.rate, confusion, votes (for classification) or predicted, mse and rsq (for regression) for the test set. If proximity=TRUE, there is also a component, proximity, which contains the proximity among the test set as well as proximity between test and training data.
