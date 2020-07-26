@@ -21,3 +21,25 @@ plot(tree, uniform = T, main = 'Kyphosis Tree')
 ## label the decision tree plot
 text(tree, use.n = T, all = T)
 
+
+## create a better plot of decision tree
+install.packages("rpart.plot")
+library(rpart.plot)
+
+prp(tree)
+
+## random forest
+install.packages("randomForest")
+library(randomForest)
+
+rfmodel <- randomForest(Kyphosis ~ ., data = kyphosis)
+print(rfmodel)
+
+help("randomForest")
+
+rfmodel$ntree
+
+rfmodel$confusion
+
+
+
